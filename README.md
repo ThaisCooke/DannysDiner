@@ -13,7 +13,9 @@ CREATE TABLE sales (
 
 INSERT INTO sales
   ("customer_id", "order_date", "product_id")
+  
 VALUES
+
   ('A', '2021-01-01', '1'),
   ('A', '2021-01-01', '2'),
   ('A', '2021-01-07', '2'),
@@ -39,6 +41,7 @@ CREATE TABLE menu (
 
 INSERT INTO menu
   ("product_id", "product_name", "price")
+  
 VALUES
   ('1', 'sushi', '10'),
   ('2', 'curry', '15'),
