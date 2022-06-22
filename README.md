@@ -73,8 +73,8 @@ GROUP BY customer_iD
     
   
   
-QUESTION 2:
-How many days has each customer visited the restaurant:
+    QUESTION 2:
+    How many days has each customer visited the restaurant:
 
 
   
