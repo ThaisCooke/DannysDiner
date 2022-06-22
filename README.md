@@ -80,11 +80,15 @@ INNER JOIN dbo.menu
 ON dbo.sales.product_id = dbo.menu.product_id 
 GROUP BY customer_iD
 
+
+
+
 --How many days each customer visited the restaurant:
 
+
 SELECT customer_id, COUNT(order_date) AS Number_of_visits
-  FROM sales
-  GROUP BY customer_id
+FROM sales
+GROUP BY customer_id
   
   
   
@@ -92,30 +96,38 @@ SELECT customer_id, COUNT(order_date) AS Number_of_visits
 --What was the first item from the menu purchased by each customer:
 
 
--- First, I joined the tables sales and menu:
-
+-- First, I joined the tables 'sales' and 'menu':
   SELECT customer_id, product_name, order_date
   FROM dbo.sales
   INNER JOIN dbo.menu
   ON dbo.sales.product_id = dbo.menu.product_id
   
   --Then, I organized by order date and customer_id:
-
   SELECT order_date, customer_id, product_name 
   FROM dbo.sales
   INNER JOIN dbo.menu
   ON dbo.sales.product_id = dbo.menu.product_id
-  --WHERE order_date = '2021-01-01'
   ORDER BY order_date 
 
   --After finding out the first date, I added a WHERE clause to make the results clearer:
-
   SELECT order_date, customer_id, product_name 
   FROM dbo.sales
   INNER JOIN dbo.menu
   ON dbo.sales.product_id = dbo.menu.product_id
   WHERE order_date = '2021-01-01'
   ORDER BY order_date
+  
+  
+  
+  --What is the most purchased item on the menu and how many times was it purchased by all customers
+
+
+--First, I used the joined tables 'sales' and 'menu':
+  SELECT customer_id, product_name, order_date
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+  
   
   
   
