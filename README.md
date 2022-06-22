@@ -76,6 +76,10 @@ GROUP BY customer_iD
     QUESTION 2:
     How many days has each customer visited the restaurant:
 
+-- I used the functions COUNT and GROUP BY:
+SELECT customer_id, COUNT(order_date) AS Number_of_visits
+  FROM sales
+  GROUP BY customer_id
 
   
   
