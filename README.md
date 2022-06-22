@@ -127,6 +127,18 @@ GROUP BY customer_id
   FROM dbo.sales
   INNER JOIN dbo.menu
   ON dbo.sales.product_id = dbo.menu.product_id
+ 
+ --Then, I used 'GROUP BY' function:
+  SELECT product_name, COUNT (product_name) AS Times_purchased
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+  GROUP BY product_name
+  ORDER BY Times_purchased DESC
+  
+  
+  
+  
   
   
   
