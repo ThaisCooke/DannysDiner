@@ -62,6 +62,7 @@ VALUES
   ('B', '2021-01-09');
   
   
+  
   -- Total Amount Each Customer Spent at the Restaurant:
   
   
@@ -84,8 +85,12 @@ GROUP BY customer_iD
 SELECT customer_id, COUNT(order_date) AS Number_of_visits
   FROM sales
   GROUP BY customer_id
+  
+  
+  
 
 --What was the first item from the menu purchased by each customer:
+
 
 -- First, I joined the tables sales and menu:
 
@@ -94,6 +99,23 @@ SELECT customer_id, COUNT(order_date) AS Number_of_visits
   INNER JOIN dbo.menu
   ON dbo.sales.product_id = dbo.menu.product_id
   
+  --Then, I organized by order date and customer_id:
+
+  SELECT order_date, customer_id, product_name 
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+  --WHERE order_date = '2021-01-01'
+  ORDER BY order_date 
+
+  --After finding out the first date, I added a WHERE clause to make the results clearer:
+
+  SELECT order_date, customer_id, product_name 
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+  WHERE order_date = '2021-01-01'
+  ORDER BY order_date
   
   
   
