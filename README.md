@@ -79,8 +79,8 @@ GROUP BY customer_iD
 
   
   
-  QUESTION 3:
-  What was the first item from the menu purchased by each customer
+      QUESTION 3:
+      What was the first item from the menu purchased by each customer
 
   -- First, I joined tables sales and menu:
 
@@ -109,8 +109,8 @@ GROUP BY customer_iD
   
   
   
-  QUESTION 4:
-  -- What is the most purchased item on the menu and how many times was it purchased by all customers
+      QUESTION 4:
+      What is the most purchased item on the menu and how many times was it purchased by all customers
 
   SELECT customer_id, product_name
   FROM dbo.sales
