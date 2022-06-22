@@ -55,6 +55,76 @@ VALUES
   ('B', '2021-01-09');
   
   
+    QUESTION 1:
+    What is the Total Amount each customer spent at the restaurant:
+
+--First, I inner joined tables 'sales' and 'menu':
+SELECT customer_iD, price
+FROM dbo.sales
+INNER JOIN dbo.menu 
+ON dbo.sales.product_id = dbo.menu.product_id
+
+--Then, I used SUM function with GROUP BY:
+SELECT customer_iD, SUM (price) AS Total_spent 
+FROM dbo.sales
+INNER JOIN dbo.menu 
+ON dbo.sales.product_id = dbo.menu.product_id 
+GROUP BY customer_iD
+    
+  
+  
+QUESTION 2:
+How many days has each customer visited the restaurant:
+
+
+  
+  
+  QUESTION 3:
+  What was the first item from the menu purchased by each customer
+
+  -- First, I joined tables sales and menu:
+
+  SELECT customer_id, product_name, order_date
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+
+  --Then, I organized by order date and customer_id:
+
+  SELECT order_date, customer_id, product_name 
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+  --WHERE order_date = '2021-01-01'
+  ORDER BY order_date 
+
+  --After finding out the first date, I added a WHERE clause to make the results clearer:
+
+  SELECT order_date, customer_id, product_name 
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+  WHERE order_date = '2021-01-01'
+  ORDER BY order_date
+  
+  
+  
+  QUESTION 4:
+  -- What is the most purchased item on the menu and how many times was it purchased by all customers
+
+  SELECT customer_id, product_name
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+  --GROUP BY product_name
+
+  SELECT product_name, COUNT (product_name) AS Times_purchased
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+  GROUP BY product_name
+  ORDER BY Times_purchased DESC
+  
   
   
   
