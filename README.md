@@ -1,9 +1,11 @@
 # DannysDiner
-Part of the 8 week course challenge
+Week 1 of the 8 week course challenge.
 
-This is part of the 8 week SQL Challenge, by Danny Ma
+This is part of the 8 week SQL Challenge, by Danny Ma. You can read about his challenge here: https://8weeksqlchallenge.com/case-study-1/
 
-CREATING TABLE (In Danny Ma's Challenge):
+He created the tables and I copied and paste into SQL Server:
+
+CREATING TABLE:
 
 CREATE TABLE sales (
   "customer_id" VARCHAR(1),
@@ -76,5 +78,24 @@ FROM dbo.sales
 INNER JOIN dbo.menu 
 ON dbo.sales.product_id = dbo.menu.product_id 
 GROUP BY customer_iD
+
+--How many days each customer visited the restaurant:
+
+SELECT customer_id, COUNT(order_date) AS Number_of_visits
+  FROM sales
+  GROUP BY customer_id
+
+--What was the first item from the menu purchased by each customer:
+
+-- First, I joined the tables sales and menu:
+
+  SELECT customer_id, product_name, order_date
+  FROM dbo.sales
+  INNER JOIN dbo.menu
+  ON dbo.sales.product_id = dbo.menu.product_id
+  
+  
+  
+  
 
   
