@@ -142,7 +142,6 @@ SELECT customer_id, COUNT(order_date) AS Number_of_visits
   FROM dbo.sales
   INNER JOIN dbo.menu
   ON dbo.sales.product_id = dbo.menu.product_id
-  --GROUP BY product_name
   
   
 --Then, I used the COUNT function, combined with GROUP BY and ORDER BY:
