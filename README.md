@@ -133,22 +133,24 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
       Answer: ramen	8
               curry	4
               sushi	3
-      
-
--- I used the joined tables 'sales' and 'menu':
-   SELECT customer_id, product_name
-   FROM dbo.sales
-   INNER JOIN dbo.menu
-   ON dbo.sales.product_id = dbo.menu.product_id
+              
+  
+ -- I used the joined tables 'sales' and 'menu':
+ 
+        SELECT customer_id, product_name
+        FROM dbo.sales
+        INNER JOIN dbo.menu
+        ON dbo.sales.product_id = dbo.menu.product_id
   
   
 --Then, I used the COUNT function, combined with GROUP BY and ORDER BY:
-          SELECT product_name, COUNT (product_name) AS Times_purchased
-          FROM dbo.sales
-          INNER JOIN dbo.menu
-          ON dbo.sales.product_id = dbo.menu.product_id
-          GROUP BY product_name
-          ORDER BY Times_purchased DESC
+
+        SELECT product_name, COUNT (product_name) AS Times_purchased
+        FROM dbo.sales
+        INNER JOIN dbo.menu
+        ON dbo.sales.product_id = dbo.menu.product_id
+        GROUP BY product_name
+        ORDER BY Times_purchased DESC
   
   
   
