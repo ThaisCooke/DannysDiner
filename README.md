@@ -186,6 +186,25 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
         where rank = 1
   
   
+  QUESTION 6:
+  Which item was purchased first by the customer after they became a member
+  
+        Answer:
+  
+  
+  
+  -- First, I joined the three tables, since the common key was customer_id on both members and sales table. 
+  
+  -- The product information was on the menu table.
+
+
+        SELECT dbo.sales.customer_id, dbo.sales.order_date, dbo.menu.product_name, dbo.members.join_date
+        FROM dbo.sales
+        JOIN dbo.menu
+        ON dbo.sales.product_id = dbo.menu.product_id
+	    JOIN dbo.members
+	    ON dbo.members.customer_id = dbo.sales.customer_id
+  
   
   
   
