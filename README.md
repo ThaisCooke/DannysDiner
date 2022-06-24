@@ -63,12 +63,14 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
             C	36
 
 --First, I inner joined tables 'sales' and 'menu':
+    
     SELECT customer_iD, price
     FROM dbo.sales
     INNER JOIN dbo.menu 
     ON dbo.sales.product_id = dbo.menu.product_id
 
 --Then, I used SUM function with GROUP BY:
+    
     SELECT customer_iD, SUM (price) AS Total_spent 
     FROM dbo.sales
     INNER JOIN dbo.menu 
