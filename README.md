@@ -157,7 +157,33 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   
   
   
+  QUESTION 5:
+  Which item was the most popular for each customer
   
+        Answer:customer_id	product_name	item_bought_count
+                  A	            ramen	          3
+                  B	            sushi	          2
+                  B	            curry	          2
+                  B	            ramen	          2
+                  C	            ramen	          3
+  
+  
+  -- Using RANK and PARTITION BY Functions:
+  
+        with rank as(
+        select sales.customer_id,
+        menu.product_name,
+        count(*) as order_count,
+        dense_rank() over(partition by sales.customer_id
+        order by count(sales.customer_id)desc) as rank
+        FROM dbo.sales
+        INNER JOIN dbo.menu
+        ON dbo.sales.product_id = dbo.menu.product_id
+        group by sales.customer_id,menu.product_name)
+   
+        Select Customer_id,Product_name,order_Count
+        From rank
+        where rank = 1
   
   
   
