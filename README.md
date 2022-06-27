@@ -205,6 +205,17 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
 	    JOIN dbo.members
 	    ON dbo.members.customer_id = dbo.sales.customer_id
   
+  -- Then, I used ROW_NUMBER 
+  
+ 	 SELECT ROW_NUMBER () OVER (PARTITION BY dbo.menu.product_name ORDER BY dbo.sales.customer_id) AS row_id, 
+		dbo.sales.customer_id, dbo.sales.order_date, dbo.menu.product_name 
+		FROM dbo.sales 
+    	JOIN dbo.menu
+    	ON dbo.sales.product_id = dbo.menu.product_id
+    	JOIN dbo.members
+    	ON dbo.members.customer_id = dbo.sales.customer_id
+	WHERE dbo.sales.order_date > dbo.members.join_date
+	ORDER BY row_id
   
   
   
