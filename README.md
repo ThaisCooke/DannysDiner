@@ -208,15 +208,45 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   -- Then, I used ROW_NUMBER 
   
  	 SELECT ROW_NUMBER () OVER (PARTITION BY dbo.menu.product_name ORDER BY dbo.sales.customer_id) AS row_id, 
-		dbo.sales.customer_id, dbo.sales.order_date, dbo.menu.product_name 
-		FROM dbo.sales 
+	dbo.sales.customer_id, dbo.sales.order_date, dbo.menu.product_name 
+	FROM dbo.sales 
+    JOIN dbo.menu
+    ON dbo.sales.product_id = dbo.menu.product_id
+    JOIN dbo.members
+    ON dbo.members.customer_id = dbo.sales.customer_id
+	WHERE dbo.sales.order_date > dbo.members.join_date
+	ORDER BY row_id
+	
+-- However, this got me this result:
+
+	row_id	customer_id	order_date	product_name
+	1		A	2021-01-10	ramen
+	1		B	2021-01-11	sushi
+	2		A	2021-01-11	ramen
+	3		A	2021-01-11	ramen
+	4		B	2021-01-16	ramen
+	5		B	2021-02-01	ramen
+  
+  
+  -- And I got an error message when trying to filter by row_id.
+  
+  -- That's when I got the TOP 1 function:
+  
+  	SELECT top 1 WITH ties
+	dbo.sales.customer_id, dbo.menu.product_name 
+	FROM dbo.sales 
     	JOIN dbo.menu
     	ON dbo.sales.product_id = dbo.menu.product_id
     	JOIN dbo.members
     	ON dbo.members.customer_id = dbo.sales.customer_id
-	WHERE dbo.sales.order_date > dbo.members.join_date
-	ORDER BY row_id
-  
+	WHERE dbo.sales.order_date > dbo.members.join_date 
+	ORDER BY ROW_NUMBER () OVER (PARTITION BY dbo.menu.product_name ORDER BY dbo.sales.customer_id) 
+	
+-- Which gave me the result I was looking for:
+
+	customer_id	product_name
+		A	ramen
+		B	sushi
   
   
 
