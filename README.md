@@ -284,4 +284,28 @@ If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how
 
 	Answer:
 
-  
+	customer_id	Points
+		A	860
+		B	940
+		C	360
+		
+		
+-- Using SUM with CASE function:
+
+	SELECT
+ 	dbo.sales.customer_id,
+  	SUM(
+    	CASE
+      	WHEN dbo.menu.product_name = 'sushi' THEN 20 * price
+      	ELSE 10 * PRICE
+    	END
+  	) AS Points
+	FROM dbo.sales
+    	JOIN dbo.menu
+    	ON dbo.sales.product_id = dbo.menu.product_id
+	GROUP BY
+  	dbo.sales.customer_id
+	ORDER BY
+  	dbo.sales.customer_id;
+
+
