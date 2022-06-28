@@ -192,9 +192,8 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
         Answer:
 	
   	customer_id	product_name
-		A	sushi
-		B	curry
-  
+		A	curry
+		B	sushi
   
   -- First, I joined the three tables, since the common key was customer_id on both members and sales table. 
   
@@ -210,37 +209,20 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   
   -- Then, I used ROW_NUMBER in a CTE:
   
- 	 WITH cte AS (SELECT ROW_NUMBER () OVER (PARTITION BY dbo.menu.product_name ORDER BY dbo.sales.customer_id) AS row_id, 
+ 	 WITH cte AS (SELECT ROW_NUMBER () OVER (PARTITION BY dbo.members.customer_id ORDER BY dbo.menu.product) AS row_id, 
 	dbo.sales.customer_id, dbo.sales.order_date, dbo.menu.product_name 
 	FROM dbo.sales 
     JOIN dbo.menu
     ON dbo.sales.product_id = dbo.menu.product_id
     JOIN dbo.members
     ON dbo.members.customer_id = dbo.sales.customer_id
-	WHERE dbo.sales.order_date > dbo.members.join_date)
+	WHERE dbo.sales.order_date >= dbo.members.join_date)
 
 	SELECT * 
 	FROM cte 
 	WHERE row_id = 1
 
   
-  -- This result can also be accomplished using the TOP 1 function:
-  
-  	SELECT top 1 WITH ties
-	dbo.sales.customer_id, dbo.menu.product_name 
-	FROM dbo.sales 
-    	JOIN dbo.menu
-    	ON dbo.sales.product_id = dbo.menu.product_id
-    	JOIN dbo.members
-    	ON dbo.members.customer_id = dbo.sales.customer_id
-	WHERE dbo.sales.order_date > dbo.members.join_date 
-	ORDER BY ROW_NUMBER () OVER (PARTITION BY dbo.menu.product_name ORDER BY dbo.sales.customer_id) 
-	
--- Which gave me the result I was looking for:
-
-	customer_id	product_name
-		A	ramen
-		B	sushi
   
   
   
@@ -253,21 +235,9 @@ Which item was purchased just before the customer became a member?
 		A	sushi
 		B	curry
 
-
--- I used the same function TOP 1, and changes the sign > to < when comparing the order date vs join date. I also modified the PARTITION BY to customer_id over order_date:
-
-	SELECT top 1 WITH TIES
-	dbo.sales.customer_id, dbo.menu.product_name 
-	FROM dbo.sales 
-	JOIN dbo.menu
-	ON dbo.sales.product_id = dbo.menu.product_id
-	JOIN dbo.members
-	ON dbo.members.customer_id = dbo.sales.customer_id
-	WHERE dbo.sales.order_date < dbo.members.join_date 
-	ORDER BY ROW_NUMBER () OVER (PARTITION BY dbo.members.customer_id ORDER BY dbo.sales.order_date) 
 	
 	
--- This result can also be accomplished by using CTE, modifying the PARTITION BY and switching the sign > to < when comparing the order date vs join date
+-- This result can be accomplished by using CTE, modifying the PARTITION BY and switching the sign > to < when comparing the order date vs join date
 
 	WITH cte AS (SELECT ROW_NUMBER () OVER (PARTITION BY dbo.members.customer_id ORDER BY dbo.sales.order_date) AS row_id, 
 	dbo.sales.customer_id, dbo.sales.order_date, dbo.menu.product_name 
