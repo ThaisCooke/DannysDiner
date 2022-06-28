@@ -56,7 +56,7 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   
   
   QUESTION 1:
-  What is the Total Amount each customer spent at the restaurant:
+  What is the Total Amount each customer spent at the restaurant?
     
     Answer: A	76
             B	74
@@ -80,7 +80,7 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   
   
   QUESTION 2:
-  How many days has each customer visited the restaurant:
+  How many days has each customer visited the restaurant?
     
     Answer: A	6
             B	6
@@ -95,7 +95,7 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   
   
     QUESTION 3:
-    What was the first item from the menu purchased by each customer
+    What was the first item from the menu purchased by each customer?
       
       Answer: 2021-01-01	A	sushi
               2021-01-01	A	curry
@@ -130,7 +130,7 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   
   
   QUESTION 4:
-  What is the most purchased item on the menu and how many times was it purchased by all customers
+  What is the most purchased item on the menu and how many times was it purchased by all customers?
       
       Answer: ramen	8
               curry	4
@@ -158,7 +158,7 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   
   
   QUESTION 5:
-  Which item was the most popular for each customer
+  Which item was the most popular for each customer?
   
         Answer:customer_id	product_name	item_bought_count
                   A	            ramen	          3
@@ -187,7 +187,7 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   
   
   QUESTION 6:
-  Which item was purchased first by the customer after they became a member
+  Which item was purchased first by the customer after they became a member?
   
         Answer:
 	
@@ -245,8 +245,10 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
   
   
 QUESTION 7:
-Which item was purchased just before the customer became a member
+Which item was purchased just before the customer became a member?
 
+	Answer:
+	
 	customer_id	product_name
 		A	sushi
 		B	curry
@@ -281,7 +283,35 @@ Which item was purchased just before the customer became a member
 	WHERE row_id = 1
 	
 	
+
+QUESTION 8:
+
+What is the total items and amount spent for each member before they became a member?
+
+	Answer:
 	
-	
+	customer_id	number_of_items	   Total
+		A	  2	             25
+		B	  2	             40
+		
+
+
+-- I used COUNT DISTINCT and SUM to get to the answer:
+
+	SELECT  dbo.sales.customer_id, COUNT (DISTINCT dbo.menu.product_name) AS number_of_items, SUM (dbo.menu.price) AS Total
+	FROM dbo.sales
+    	JOIN dbo.menu
+    	ON dbo.sales.product_id = dbo.menu.product_id
+    	JOIN dbo.members
+    	ON dbo.members.customer_id = dbo.sales.customer_id
+	WHERE dbo.sales.order_date < dbo.members.join_date
+	GROUP BY   dbo.sales.customer_id
+
+
+QUESTION 9:
+
+If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+
+	Answer:
 
   
