@@ -307,5 +307,36 @@ If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how
   	dbo.sales.customer_id
 	ORDER BY
   	dbo.sales.customer_id;
+	
 
+QUESTION 10:
+
+In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+
+	Answer:
+	customer_id	Points
+		A	1370
+		B	940
+	
+
+-- Same query as the last question, using SUM with CASE function, but this time limiting the date:
+
+	SELECT
+	dbo.sales.customer_id,
+	SUM(
+		CASE
+  		WHEN dbo.menu.product_name = 'sushi' THEN 20 * price
+		WHEN order_date BETWEEN '2021-01-07' AND '2021-01-14' THEN 20 * price
+  		ELSE 10 * PRICE
+		END
+	) AS Points
+	FROM dbo.sales
+    	JOIN dbo.menu
+    	ON dbo.sales.product_id = dbo.menu.product_id
+    	JOIN dbo.members
+    	ON dbo.members.customer_id = dbo.sales.customer_id
+	GROUP BY
+	dbo.sales.customer_id
+	ORDER BY
+	dbo.sales.customer_id;
 
