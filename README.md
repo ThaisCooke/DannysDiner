@@ -90,14 +90,15 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
 
 
 -- I used the functions COUNT and GROUP BY:
-    SELECT customer_id, COUNT(order_date) AS Number_of_visits
-      FROM sales
-      GROUP BY customer_id
+
+    	SELECT customer_id, COUNT(order_date) AS Number_of_visits
+    	FROM sales
+    	GROUP BY customer_id
 
   
   
-    QUESTION 3:
-    What was the first item from the menu purchased by each customer?
+  QUESTION 3:
+  What was the first item from the menu purchased by each customer?
       
       Answer: 2021-01-01	A	sushi
               2021-01-01	A	curry
