@@ -5,4 +5,4 @@ This is part of the 8 week SQL Challenge, by Danny Ma. You can find his challeng
 
 
 
-
+![Danny's Diner](dannysdiner.png)
